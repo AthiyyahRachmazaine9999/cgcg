@@ -545,17 +545,20 @@ if (!function_exists('ProHargaHist')) {
 
 
 
+
 if (!function_exists('cost')) {
     function cost($id)
     {
 
-        
 
-        $costsetmenu   = FinanceSettlementDetail::select(DB::raw('qty*est_biaya as subtotal'))
-        ->join('finance_settlement', 'finance_settlement_detail.id', '=', 'finance_settlement.id')
-        ->join('employees', 'finance_settlement_detail.id', '=', 'employees.id')
-        ->where('finance_settlement_detail.id', $id)
-        ->get()->sum('subtotal');
+        $costsetmenu    = FinanceSettlementModel::select('biaya_finance')
+        ->where([
+            ['employee_id' , $id ],
+            ['status', '=', 'Completed']
+        ])
+            ->get()->sum('biaya_finance');
+
+    
         
         
 

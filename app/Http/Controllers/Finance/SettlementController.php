@@ -171,29 +171,97 @@ function add_kegiatan(Request $request)
          ]);
     }
 
-    
-
-
-    
-
-    public function totalsmenustotalsmenus()
-    {
-
-        $mine = getUserEmp(Auth::id());
-        $emp = EmployeeModel::where('division_id', '=', 9 )
-        ->get();
-        
-        
-        return view('finance.salessetcost.index',[
-
-            'emp'      => $emp,
-           
-            
-         ]);
-    }
-
    
 
+
+        public function totalsmenustotalsmenus()
+        {
+    
+            $mine = getUserEmp(Auth::id());
+           
+             $empspv = EmployeeModel::where('spv_id', $mine->id_emp )
+             ->get();
+
+             $emp = EmployeeModel::where('spv_id', $mine->id_emp )
+             ->get();
+
+             if ( $empspv !== null) {
+                
+                $emp = EmployeeModel::where('spv_id', $mine->id_emp )
+                ->orWhere('id', '=' , $mine->id_emp)
+                ->get();
+        
+            } else  {
+
+                $emp = EmployeeModel::where('division_id', '=', 9 )
+                ->get();
+
+               
+            }
+
+
+           
+            return view('finance.salessetcost.index',[
+    
+                'emp'      => $emp,
+               
+                
+             ]);
+        }
+    
+
+   
+////////// sales
+
+
+
+
+// spv 62 
+
+// hadimaja@maleser.com
+
+// roni irawan 5
+
+// Muhammad Adnan 17
+
+// Hendrik Candra Kurniawan 18
+
+// Ria Fitri Ariyani 52
+
+
+
+
+// spv 52
+
+// ria.fitria@maleser.com
+
+// Muhammad Rizal Zulfikar 22
+
+
+
+
+// spv 17
+
+// muhammad.adnan@maleser.com
+
+// Muhammad Zamsir Junusi 34
+
+
+
+
+// spv 5
+
+// roni.irawan@maleser.com
+
+// Ade Saputra 63
+
+// Noel Christopher Manik 64
+
+
+
+
+
+///////// sales
 
 
 
