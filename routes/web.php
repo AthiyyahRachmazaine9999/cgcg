@@ -630,6 +630,12 @@ Route::middleware('auth')->group(function () {
 
         //totalsmenustotalsmenus
 
+        //totalsmenusdetail
+
+        Route::get("settlement/{id}/setmenutotaldetails", 'Finance\SettlementController@totalsmenusdetails');
+
+        //totalsmenusdetail
+
         Route::post("settlement/edit_set", 'Finance\SettlementController@editby_Finance');
         Route::get("settlement/{id}/edit_finance", 'Finance\SettlementController@EditFinance');
         Route::get("settlement/{id}/reject_finance", 'Finance\SettlementController@reject_finance');

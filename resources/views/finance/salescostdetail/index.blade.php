@@ -32,15 +32,10 @@
 
                     <tr class="text-center">
 
-
-
-                        <th >Name</th>
-
                         <th >Settlement</th>
 
-                        <th >DetailTotal</th>
+                        <th >Nominal</th>
 
-                        
                         
                     </tr>
 
@@ -48,29 +43,27 @@
 
 
                 <tbody>
+        @php
+        foreach($emp as $value) { @endphp
+        
 
 
-                @php
-                foreach($emp as $value) { @endphp
 
+        <tr>
+        <td class="text-left">{{$value->emp_name}}</td>
 
+        <td class="text-right">{{number_format($value->biaya_finance , 0 )}}</td>
 
-                <td class="text-left">{{$value->emp_name}}</td>
-
-                <td class="text-right">{{number_format(cost($value->id) , 0 )}}</td>
-
-                <td class="text-right"><button class="btn btn-danger">
-
-                <a href="{{ url('/finance/settlement/' . $value->id . '/setmenutotaldetails') }}" >DetailSet</a>
-                
-                </button></td>
-
-                
 
         </tr>
         @php } @endphp
         </tbody>
         
+
+                
+
+
+    
 
             </table>
 
@@ -90,7 +83,7 @@
 
 @section('script')
 
-<script src="{{ asset('ctrl/finance/totalsmenustotalsmenus.js') }}" type="text/javascript"></script>
+<script src="{{ asset('ctrl/finance/totalsmenusdetails.js') }}" type="text/javascript"></script>
 
 
 

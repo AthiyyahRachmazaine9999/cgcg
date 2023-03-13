@@ -36,12 +36,12 @@ var DatatableCash = {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: main_url + "finance/settlement/settlementmenustotal",
+                url: main_url + "finance/settlement/{id}/setmenutotaldetails",
 
-                //totalsmenusdetails
+                // totalsmenustotalsmenus
 
 
-                //totalsmenusdetails
+                // totalsmenustotalsmenus
                 
                 type: 'get',
                 dataType: 'json',
@@ -50,6 +50,9 @@ var DatatableCash = {
                     '_token': token
                 }
             },
+
+
+            
 
 
             columns: [{
@@ -62,7 +65,9 @@ var DatatableCash = {
                 },
                 
             ]
-     
+
+            
+            
 
         });
     }
@@ -74,3 +79,10 @@ jQuery(document).ready(function() {
 
 
 
+
+
+function set_Complete(ele) {
+    var getdata = ajax_data('finance/settlement/complete_sets', "&id=" + $(ele).data('id'));
+    $("#modalbody").html(getdata),
+        $("#modaltitle").html("Detail")
+}

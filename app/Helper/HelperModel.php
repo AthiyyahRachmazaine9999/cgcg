@@ -546,6 +546,7 @@ if (!function_exists('ProHargaHist')) {
 
 
 
+
 if (!function_exists('cost')) {
     function cost($id)
     {
@@ -558,14 +559,32 @@ if (!function_exists('cost')) {
         ])
             ->get()->sum('biaya_finance');
 
-    
-        
         
 
         return $costsetmenu;
     }
 }
 
+
+
+
+
+
+if (!function_exists('costdetail')) {
+    function costdetail($id)
+    {
+
+
+        $costsetmenudetail    = FinanceSettlementModel::selectRaw('biaya_finance')
+        ->where([
+            ['employee_id' , $id ],
+            ['status', '=', 'Completed']
+        ])
+            ->get();
+
+        return $costsetmenudetail;
+    }
+}
 
 
 

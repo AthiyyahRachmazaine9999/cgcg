@@ -124,93 +124,86 @@ function add_kegiatan(Request $request)
 
 
 
+public function totalsmenustotalsmenus()
+{
+        
+    $mine = getUserEmp(Auth::id());
+            
+    $empspv = EmployeeModel::where('spv_id', $mine->id_emp )
+    ->get();
 
+    $emp = EmployeeModel::where('spv_id', $mine->id_emp )
+    ->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $cash = CashAdvance::where('created_by', Auth::id())->get();
-        return view('finance.settlement.create',[
-            'employee' => $this->AllEmp(),
-            'province' => $this->get_province(),
-            'city'     => [],
-            'cash'     => $cash,
-            'user'     => Auth::id(),
-            'emp_data' => getUserEmp(Auth::id()),
-            'cashs'    => $this->getCash(),
-            'action'   => 'Finance\SettlementController@store',
-            'method'   => 'post',
-        ]);    
+    if ( $empspv !== null) {
+                    
+    $emp = EmployeeModel::where('spv_id', $mine->id_emp )
+    ->orWhere('id', '=' , $mine->id_emp)
+    ->get();
+            
+    } else  {
+
+    $emp = EmployeeModel::where('division_id', '=', 9 )
+    ->get();
+
+                
     }
 
-    public function create_seattlement(Request $request)
-    {
-        $id= $request->segment(3);
-        $mine = getUserEmp(Auth::id());
-        $emp  = EmployeeModel::where('spv_id', $mine->id)->first();
-        $cash = CashAdvance::where('id', $id)->first();
-        $dtl  = CashAdvanceDesc::where('id_cash', $id)->get();
-        $dtls = CashAdvanceDesc::where('id_cash', $id)->first();
-        $capp = CashAdvanceApp::where('id_cash',$id)->first();
-        $app  = CashAdvanceApp::where('id_cash', $id)->get();
-        $sett = SettlementModel::where('id_cash', $id)->first();
-        return view('finance.settlement.create',[
-             'cash'  => $cash,
-             'emp'   => $emp,
-             'mine'  => $mine,
-             'capp'  => $capp,
-             'dtls'  => $dtls,
-             'set'   => $sett,
-             'app'   => $app,
-             'divisi'=> div_name($cash->div_id),
-             'dtl'   => $dtl,
+
+            
+    return view('finance.salessetcost.index',[
+        
+    'emp'      => $emp,
+                
+                    
          ]);
     }
-
-   
-
-
-        public function totalsmenustotalsmenus()
-        {
     
-            $mine = getUserEmp(Auth::id());
-           
-             $empspv = EmployeeModel::where('spv_id', $mine->id_emp )
-             ->get();
 
-             $emp = EmployeeModel::where('spv_id', $mine->id_emp )
-             ->get();
 
-             if ( $empspv !== null) {
-                
-                $emp = EmployeeModel::where('spv_id', $mine->id_emp )
-                ->orWhere('id', '=' , $mine->id_emp)
+
+
+
+    public function totalsmenusdetails($id)
+    {
+            
+        $mine = getUserEmp(Auth::id());
+
+       $emp = EmployeeModel::join('finance_settlement', 'finance_settlement.employee_id', '=', 'employees.id')
+
+       ->where([
+
+
+            ['employee_id', $id ],
+            ['status', '=', 'Completed' ],
+            ['biaya_finance', '!=', 'null' ],
+            ['biaya_finance', '!=', 0 ] 
+
+
+
+        ])
                 ->get();
-        
-            } else  {
-
-                $emp = EmployeeModel::where('division_id', '=', 9 )
-                ->get();
-
-               
-            }
 
 
-           
-            return view('finance.salessetcost.index',[
-    
-                'emp'      => $emp,
-               
                 
+        return view('finance.salescostdetail.index',[
+            
+
+
+                    'emp'      => $emp,
+                    
+       
+                        
              ]);
         }
-    
 
-   
+
+
+
+
+
+
+
 ////////// sales
 
 
@@ -264,6 +257,50 @@ function add_kegiatan(Request $request)
 ///////// sales
 
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $cash = CashAdvance::where('created_by', Auth::id())->get();
+        return view('finance.settlement.create',[
+            'employee' => $this->AllEmp(),
+            'province' => $this->get_province(),
+            'city'     => [],
+            'cash'     => $cash,
+            'user'     => Auth::id(),
+            'emp_data' => getUserEmp(Auth::id()),
+            'cashs'    => $this->getCash(),
+            'action'   => 'Finance\SettlementController@store',
+            'method'   => 'post',
+        ]);    
+    }
+
+    public function create_seattlement(Request $request)
+    {
+        $id= $request->segment(3);
+        $mine = getUserEmp(Auth::id());
+        $emp  = EmployeeModel::where('spv_id', $mine->id)->first();
+        $cash = CashAdvance::where('id', $id)->first();
+        $dtl  = CashAdvanceDesc::where('id_cash', $id)->get();
+        $dtls = CashAdvanceDesc::where('id_cash', $id)->first();
+        $capp = CashAdvanceApp::where('id_cash',$id)->first();
+        $app  = CashAdvanceApp::where('id_cash', $id)->get();
+        $sett = SettlementModel::where('id_cash', $id)->first();
+        return view('finance.settlement.create',[
+             'cash'  => $cash,
+             'emp'   => $emp,
+             'mine'  => $mine,
+             'capp'  => $capp,
+             'dtls'  => $dtls,
+             'set'   => $sett,
+             'app'   => $app,
+             'divisi'=> div_name($cash->div_id),
+             'dtl'   => $dtl,
+         ]);
+    }
 
     public function saveSettlement(Request $request, $id=0 ){
         $sett =[
@@ -432,13 +469,6 @@ function add_kegiatan(Request $request)
              'cdtl'     => count($dtl),
          ]);
     }
-
-
-
-
-
-
-
 
     public function approve($id, $user) 
     {
@@ -880,11 +910,6 @@ public function ajukan($id)
     }
 
 
-    
-
-    
-
-
     public function EditFinance($id)
     { 
         $sets        = FinanceSettlementModel::where('id', $id)->first();
@@ -1241,9 +1266,7 @@ public function ajukan($id)
              $totalFiltered = FinanceSettlementModel::select('*')->where('created_by', $usr)->where('no_settlement', 'like', '%' . $search . '%')
                  ->orderby($order, $dir)->limit($limit, $start)->count();
          }
-        
-        
-
+        //  dd($posts);
 
          $data = [];
          if (!empty($posts)) {
@@ -1275,7 +1298,6 @@ public function ajukan($id)
          echo json_encode($json_data);
     }
 }
-
 
 
 public function ajax_finance($request)
