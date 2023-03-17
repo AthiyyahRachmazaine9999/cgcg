@@ -547,21 +547,33 @@ if (!function_exists('ProHargaHist')) {
 
 
 
-if (!function_exists('cost')) {
-    function cost($id)
+if (!function_exists('costsetsettlementmenu')) {
+    function costsetsettlementmenu($id)
     {
 
 
-        $costsetmenu    = FinanceSettlementModel::select('biaya_finance')
-        ->where([
-            ['employee_id' , $id ],
-            ['status', '=', 'Completed']
-        ])
-            ->get()->sum('biaya_finance');
+
+
+        $costsetmenus    = FinanceSettlementModel::join('finance_settlement_detail', 'finance_settlement_detail.id_settlement', '=', 'finance_settlement.id')
+        ->select(DB::raw('SUM(qty*est_biaya) as noms'))
 
         
+        ->where([
+           
+            ['finance_settlement.employee_id' , $id ],
+            ['finance_settlement.status', '=', 'Completed']
 
-        return $costsetmenu;
+        ])
+
+            
+            ->get()->sum('noms');
+
+    
+
+
+
+
+        return $costsetmenus;
     }
 }
 
@@ -570,21 +582,25 @@ if (!function_exists('cost')) {
 
 
 
-if (!function_exists('costdetail')) {
-    function costdetail($id)
+
+if (!function_exists('costsetsettlementmenudetailtotal')) {
+    function costsetsettlementmenudetailtotal($id)
     {
 
 
-        $costsetmenudetail    = FinanceSettlementModel::selectRaw('biaya_finance')
-        ->where([
-            ['employee_id' , $id ],
-            ['status', '=', 'Completed']
-        ])
-            ->get();
 
-        return $costsetmenudetail;
+        $costsetmenustotal    =  FinanceSettlementDetail::select(DB::raw('SUM(qty*est_biaya) as noms'))
+        ->where('id_settlement', $id)
+        ->first();
+        
+
+
+
+        return $costsetmenustotal;
     }
 }
+
+
 
 
 

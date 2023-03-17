@@ -26,7 +26,7 @@
 
             
 
-            <table class="container table-bordered ">
+            <table class="table salescostdetail table-bordered table-striped table-hover ">
 
                 <thead>
 
@@ -43,17 +43,25 @@
 
 
                 <tbody>
-        @php
-        foreach($emp as $value) { @endphp
+
+        @php 
+
+        foreach($emp as $value) {
+            
+           
+
+            @endphp
         
+            
 
 
 
         <tr>
-        <td class="text-left">{{$value->emp_name}}</td>
 
-        <td class="text-right">{{number_format($value->biaya_finance , 0 )}}</td>
+        <td class="text-right">{{$value->no_settlement  }}</td>
 
+        <td class="text-right">{{number_format(costsetsettlementmenudetailtotal($value->id)->noms, 0 )  }}</td>
+       
 
         </tr>
         @php } @endphp
@@ -61,7 +69,7 @@
         
 
                 
-
+        
 
     
 

@@ -35,6 +35,8 @@ class SettlementController extends Controller
     }
 
 
+
+   
     public function getCash(){
         $cash = CashAdvance::where('created_by', Auth::id())->get();
         $arr  = array();
@@ -124,6 +126,10 @@ function add_kegiatan(Request $request)
 
 
 
+
+
+
+
 public function totalsmenustotalsmenus()
 {
         
@@ -164,25 +170,25 @@ public function totalsmenustotalsmenus()
 
 
 
+
     public function totalsmenusdetails($id)
     {
             
-        $mine = getUserEmp(Auth::id());
+        
+
+        
 
        $emp = EmployeeModel::join('finance_settlement', 'finance_settlement.employee_id', '=', 'employees.id')
-
+       
        ->where([
-
-
-            ['employee_id', $id ],
-            ['status', '=', 'Completed' ],
-            ['biaya_finance', '!=', 'null' ],
-            ['biaya_finance', '!=', 0 ] 
-
-
+           
+        ['finance_settlement.employee_id' , $id ],
+        ['finance_settlement.status', '=', 'Completed']
 
         ])
+
                 ->get();
+
 
 
                 

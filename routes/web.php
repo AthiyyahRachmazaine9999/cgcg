@@ -599,7 +599,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('payment_voucher', 'Finance\Pay_VoucherController');
 
 
-        //Route::get("settlement/settlementmenustotal", 'Finance\SettlementController@totalsmenustotalsmenus');
+       
 
 
         Route::get('settlement/{set}/ajukan', 'Finance\SettlementController@ajukan')->name('set.ajukan');
@@ -623,19 +623,8 @@ Route::middleware('auth')->group(function () {
         Route::post("settlement/submit", 'Finance\SettlementController@save_data');
         Route::get('settlement/{id}/create', 'Finance\SettlementController@create_seattlement');
         Route::post("get_settlement", 'Finance\SettlementController@ajax_data');
-
-        //totalsmenustotalsmenus
-
         Route::get("settlement/settlementmenustotal", 'Finance\SettlementController@totalsmenustotalsmenus');
-
-        //totalsmenustotalsmenus
-
-        //totalsmenusdetail
-
         Route::get("settlement/{id}/setmenutotaldetails", 'Finance\SettlementController@totalsmenusdetails');
-
-        //totalsmenusdetail
-
         Route::post("settlement/edit_set", 'Finance\SettlementController@editby_Finance');
         Route::get("settlement/{id}/edit_finance", 'Finance\SettlementController@EditFinance');
         Route::get("settlement/{id}/reject_finance", 'Finance\SettlementController@reject_finance');

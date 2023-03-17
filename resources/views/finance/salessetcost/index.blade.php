@@ -26,7 +26,7 @@
 
             
 
-            <table class="container table-bordered ">
+            <table class="table salescost table-bordered table-striped table-hover ">
 
                 <thead>
 
@@ -57,13 +57,13 @@
 
                 <td class="text-left">{{$value->emp_name}}</td>
 
-                <td class="text-right">{{number_format(cost($value->id) , 0 )}}</td>
+                <td class="text-right">{{number_format(costsetsettlementmenu($value->id) , 0 )}}</td>
 
-                <td class="text-right"><button class="btn btn-danger">
+                <td class="text-right">
 
-                <a href="{{ url('/finance/settlement/' . $value->id . '/setmenutotaldetails') }}" >DetailSet</a>
+                <a class="btn btn-primary ms-2"href="{{ url('/finance/settlement/' . $value->id . '/setmenutotaldetails') }}" >DetailSet</a>
                 
-                </button></td>
+               </td>
 
                 
 
