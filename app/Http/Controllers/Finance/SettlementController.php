@@ -263,6 +263,46 @@ public function totalsmenustotalsmenus()
 ///////// sales
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// early 
+
+
+
+// early
+
+
+
+
+
+
     /**
      * Show the form for creating a new resource.
      *

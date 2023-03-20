@@ -1,0 +1,6 @@
+@php $final = $po->price+($po->price/10) @endphp
+<p style="margin-right: 0px; margin-bottom: 9px; margin-left: 0px; font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;">Dear <b>Team</b>,</p>
+<p style="margin-right: 0px; margin-bottom: 9px; margin-left: 0px; font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;">Herewith enclosed&nbsp;<strong style="font-weight: bold;">Purchase Order Confirmation {{$po->po_number}}</strong>&nbsp;With total amount&nbsp;<strong style="font-weight: bold;">Rp&nbsp;{{number_format($po->price)}}</strong>&nbsp;from {{$cabang->nama_perusahaan}} {{$cabang->cabang_name}} to {{$text->vendor_name}} for Product Stock.</p>
+<p style="margin-right: 0px; margin-bottom: 9px; margin-left: 0px; font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;">Please Let check and confirm it.</p>
+<p style="margin-right: 0px; margin-bottom: 9px; margin-left: 0px; font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;">You can reply this email if you have any questions.</p>
+<p style="margin-right: 0px; margin-bottom: 9px; margin-left: 0px; font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;">Thank you,</p>
